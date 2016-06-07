@@ -1,0 +1,40 @@
+CREATE TABLE `会社` (
+	`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`会社名` TEXT NOT NULL UNIQUE,
+	`社長名` TEXT NOT NULL,
+	`追加日時` TEXT NOT NULL,
+	`更新日時` TEXT
+);
+
+CREATE TABLE `会社決算期` (
+	`ID` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`会社ID` INTEGER NOT NULL,
+	`決算期` INTEGER NOT NULL,
+	`ルール` TEXT NOT NULL,
+	`追加日時` TEXT NOT NULL,
+	`更新日時` TEXT,
+	FOREIGN KEY (`会社ID`)
+		REFERENCES `会社` (`ID`),
+	FOREIGN KEY (`会社ID`)
+		REFERENCES `会社` (`ID`)
+);
+
+CREATE TABLE `会社` (
+	`ID` INTEGER,
+	`会社名` TEXT NOT NULL UNIQUE,
+	`社長名` TEXT NOT NULL,
+	`追加日時` TEXT NOT NULL,
+	`更新日時` TEXT
+);
+
+CREATE TABLE `会社決算期` (
+	`ID` INTEGER,
+	`会社ID` INTEGER NOT NULL,
+	`決算期` INTEGER NOT NULL,
+	`ルール` TEXT NOT NULL,
+	`追加日時` TEXT NOT NULL,
+	`更新日時` TEXT,
+	FOREIGN KEY (`会社ID`, `商品コード`)
+		REFERENCES `会社` (`ID`, `商品コード`)
+);
+

@@ -15,7 +15,8 @@ CREATE TABLE `<%=table['name']%>` (
 		'`' + fk['columns-name'] + '`'%>)
 		REFERENCES `<%= fk['table-name']%>` (<%= (fk['ref-columns-name'].instance_of?(Array)) ? \
 		fk['ref-columns-name'].each_with_index{| str, i | fk['ref-columns-name'][i] = '`' + str + '`'}.join(', ') : \
-		'`' + fk['ref-columns-name'] + '`'%>)
+		'`' + fk['ref-columns-name'] + '`'%>)<% %>
 <%=(fk.equal? table['foreign-keys'].last) ? "\n" : ",\n" %>
 <% } %>
-)
+);
+<%="\n"%>
