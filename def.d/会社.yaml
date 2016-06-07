@@ -1,0 +1,48 @@
+tables:
+  - name: 会社
+    columns:
+      - name:     ID
+        type:     INTEGER
+        not-null: true
+        primary-key: true
+        auto-increment: true
+      - name:     会社名
+        type:     TEXT
+        not-null: true
+        unique:   true
+      - name:     社長名
+        type:     TEXT
+        not-null: true
+      - name:     追加日時
+        type:     TEXT
+        not-null: true
+      - name:     更新日時
+        type:     TEXT
+  - name: 会社決算期
+    columns:
+      - name:     ID
+        type:     INTEGER
+        primary-key:  true
+        auto-increment: true
+        not-null: true
+      - name:     会社ID
+        type:     INTEGER
+        not-null: true
+      - name:     決算期
+        type:     INTEGER
+        not-null: true
+      - name:     ルール
+        type:     TEXT
+        not-null: true
+      - name:     追加日時
+        type:     TEXT
+        not-null: true
+      - name:     更新日時
+        type:     TEXT
+    foreign-keys:
+      - columns-name:  会社ID
+        table-name:   会社
+        ref-columns-name: ID
+      - columns-name:  会社ID
+        table-name:   会社
+        ref-columns-name: ID

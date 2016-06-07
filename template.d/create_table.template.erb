@@ -1,0 +1,21 @@
+<% table = hash %>
+CREATE TABLE `<%=table['name']%>` (
+<% table['columns'].each { |column| %>
+	`<%=column['name']%>` <%=column['type']%>
+<%=' NOT NULL' if column['not-null'] %>
+<%=' PRIMARY KEY' if column['primary-key'] %>
+<%=' AUTOINCREMENT' if column['auto-increment'] %>
+<%=' UNIQUE' if column['unique'] %>
+<%=' DEFAULT ' + column['default'] if column['default']%>
+<%=((column.equal? table['columns'].last) && !table['foreign-keys']) ? "\n" : ",\n" %>
+<% } %>
+<% (table['foreign-keys'] || []).each { |fk| %>
+	FOREIGN KEY (<%= (fk['columns-name'].instance_of?(Array)) ? \
+		fk['columns-name'].each_with_index{| str, i | fk['columns-name'][i] = '`' + str + '`'}.join(', ') : \
+		'`' + fk['columns-name'] + '`'%>)
+		REFERENCES `<%= fk['table-name']%>` (<%= (fk['ref-columns-name'].instance_of?(Array)) ? \
+		fk['ref-columns-name'].each_with_index{| str, i | fk['ref-columns-name'][i] = '`' + str + '`'}.join(', ') : \
+		'`' + fk['ref-columns-name'] + '`'%>)
+<%=(fk.equal? table['foreign-keys'].last) ? "\n" : ",\n" %>
+<% } %>
+)
